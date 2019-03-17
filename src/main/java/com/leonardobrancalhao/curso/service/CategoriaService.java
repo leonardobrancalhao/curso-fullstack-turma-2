@@ -14,20 +14,36 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository repository;
 
-	public Categoria salvar(Categoria categoria) {
+	public Categoria salvar(Categoria categoria) throws Exception {
 		if (categoria == null) {
-			return null;
+			throw new Exception("Parametros invalidos");
 		}
 
 		if (categoria.getNome() == null || categoria.getNome().isEmpty()) {
-			return null;
+			throw new Exception("Nome invalido");
 		}
 
 		return repository.save(categoria);
 	}
-	
+
 	public List<Categoria> listar() {
 		return repository.findAll();
+	}
+
+	public Categoria listar(Integer id) throws Exception {
+		if (id == null || id <= 0) {
+			throw new Exception("Parametro invalido");
+		}
+		
+		return repository.findById(id).get();
+	}
+	
+	public void remover(Integer id) throws Exception {
+		if (id == null || id <= 0) {
+			throw new Exception("Parametro invalido");
+		}
+		
+		repository.deleteById(id);
 	}
 
 }

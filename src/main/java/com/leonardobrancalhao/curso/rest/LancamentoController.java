@@ -11,20 +11,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leonardobrancalhao.curso.model.Categoria;
-import com.leonardobrancalhao.curso.service.CategoriaService;
+import com.leonardobrancalhao.curso.model.Lancamento;
+import com.leonardobrancalhao.curso.service.LancamentoService;
 
 @RestController
-@RequestMapping("categorias")
-public class CategoriaController {
+@RequestMapping(path = "lancamentos")
+public class LancamentoController {
 
 	@Autowired
-	private CategoriaService service;
+	private LancamentoService service;
 
 	@PostMapping
-	public ResponseEntity<?> salvar(@RequestBody Categoria categoria) {
+	public ResponseEntity<?> salvar(@RequestBody Lancamento lancamento) {
 		try {
-			service.salvar(categoria);
+			service.salvar(lancamento);
 		} catch (Exception e) {
 			return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -54,5 +54,5 @@ public class CategoriaController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	
 }
