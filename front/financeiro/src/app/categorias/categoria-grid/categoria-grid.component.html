@@ -1,0 +1,31 @@
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Categorias</h1>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th style="width: 20%">#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of categorias">
+                        <td>{{item.nome}}</td>
+                        <td>
+                            <i class="far fa-edit"></i>
+                            <i class="far fa-trash-alt"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
