@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { CategoriaService } from 'src/app/service/categoria.service';
+
+declare var $: any;
 
 @Component({
     selector: 'app-categoria-grid',
@@ -10,10 +12,10 @@ export class CategoriaGridComponent implements OnInit {
 
     categorias: any = [];
 
-    constructor(private http: HttpClient) { }
+    constructor(private service: CategoriaService) { }
 
     ngOnInit() {
-        this.http.get('http://localhost:8080/categorias').subscribe(
+        this.service.listar().subscribe(
             (response) => {
                 this.categorias = response;
             },
@@ -22,6 +24,10 @@ export class CategoriaGridComponent implements OnInit {
                 alert('Falha ao carregar categorias');
             }
         );
+    }
+
+    nova() {
+        $('#modalForm').modal('show');
     }
 
 }

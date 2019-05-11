@@ -5,13 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoriaGridComponent } from './categorias/categoria-grid/categoria-grid.component';
 import { LayoutComponent } from './layout/layout.component';
+import { CategoriaFormComponent } from './categorias/categoria-form/categoria-form.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         LayoutComponent,
-        CategoriaGridComponent
+        CategoriaGridComponent,
+        CategoriaFormComponent
     ],
     imports: [
         BrowserModule,
