@@ -5,7 +5,7 @@
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <button class="btn btn-sm btn-primary" (click)="nova()">Nova</button>    
+        <button class="btn btn-sm btn-primary" (click)="nova()">Nova</button>
     </div>
 
     <div class="card-body">
@@ -21,8 +21,8 @@
                     <tr *ngFor="let item of categorias">
                         <td>{{item.nome}}</td>
                         <td>
-                            <i class="far fa-edit"></i>
-                            <i class="far fa-trash-alt"></i>
+                            <i class="far fa-edit" style="cursor: pointer" (click)="edit(item)"></i>
+                            <i class="far fa-trash-alt" style="cursor: pointer" (click)="remover(item.id);"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -32,7 +32,7 @@
 </div>
 
 
-<!-- Modal -->
+<!-- Modal cadastro-->
 <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -46,9 +46,39 @@
             </div>
 
             <div class="modal-body">
-                <app-categoria-form></app-categoria-form>
+                <app-categoria-form [categoria]="categoriaSelecionada" (onSalvar)="onSalvar($event)">
+                </app-categoria-form>
             </div>
-            
+
         </div>
+    </div>
+</div>
+
+
+<!-- Modal remover-->
+<div class="modal fade" id="modalRemover" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirmação</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                {{categoriaRemover?.id}}
+                Deseja remover a categoria: {{categoriaRemover?.nome}} ?
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+            <button class="btn btn-primary" (click)="remover(categoriaRemover.id)">Sim</button>
+        </div>
+
     </div>
 </div>

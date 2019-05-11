@@ -1,12 +1,12 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CategoriaFormComponent } from './categorias/categoria-form/categoria-form.component';
 import { CategoriaGridComponent } from './categorias/categoria-grid/categoria-grid.component';
 import { LayoutComponent } from './layout/layout.component';
-import { CategoriaFormComponent } from './categorias/categoria-form/categoria-form.component';
-
 
 @NgModule({
     declarations: [
@@ -18,7 +18,8 @@ import { CategoriaFormComponent } from './categorias/categoria-form/categoria-fo
     imports: [
         BrowserModule,
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

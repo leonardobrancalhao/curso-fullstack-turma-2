@@ -11,6 +11,8 @@ declare var $: any;
 export class CategoriaGridComponent implements OnInit {
 
     categorias: any = [];
+    categoriaSelecionada: any;
+    categoriaRemover: any;
 
     constructor(private service: CategoriaService) { }
 
@@ -20,7 +22,6 @@ export class CategoriaGridComponent implements OnInit {
                 this.categorias = response;
             },
             (error) => {
-                console.log(error);
                 alert('Falha ao carregar categorias');
             }
         );
@@ -28,6 +29,34 @@ export class CategoriaGridComponent implements OnInit {
 
     nova() {
         $('#modalForm').modal('show');
+    }
+
+    onSalvar(event) {
+        $('#modalForm').modal('hide');
+
+        this.ngOnInit();
+    }
+
+    edit(categoria: any) {
+        this.categoriaSelecionada = categoria;
+        $('#modalForm').modal('show');
+    }
+
+    confirmarRemover(categoria: any) {
+        this.categoriaRemover = categoria;
+        $('#modalRemover').modal('show');
+    }
+
+    remover(id) {        
+        this.service.remover(id).subscribe(
+            () => {
+                alert('Categoria removida com sucesso');
+                this.ngOnInit();
+            },
+            (error) => {
+                alert('Falha ao remover categoria.\nErro: ' + error.error);
+            }
+        );
     }
 
 }
