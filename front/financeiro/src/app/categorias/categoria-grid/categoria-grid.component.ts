@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from 'src/app/service/categoria.service';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 declare var $: any;
 
@@ -14,7 +15,8 @@ export class CategoriaGridComponent implements OnInit {
     categoriaSelecionada: any;
     categoriaRemover: any;
 
-    constructor(private service: CategoriaService) { }
+    constructor(private service: CategoriaService,
+        private messageService: MessageService) { }
 
     ngOnInit() {
         this.service.listar().subscribe(
@@ -48,10 +50,10 @@ export class CategoriaGridComponent implements OnInit {
         $('#modalRemover').modal('show');
     }
 
-    remover(id) {        
+    remover(id) {
         this.service.remover(id).subscribe(
             () => {
-                alert('Categoria removida com sucesso');
+                this.messageService.add({ key: 'tc', severity: 'success', summary: 'Sucesso', detail: 'Categoria removida' });
                 this.ngOnInit();
             },
             (error) => {

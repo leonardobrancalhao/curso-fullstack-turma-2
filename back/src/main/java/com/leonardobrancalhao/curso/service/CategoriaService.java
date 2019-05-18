@@ -1,5 +1,6 @@
 package com.leonardobrancalhao.curso.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +31,27 @@ public class CategoriaService {
 		return repository.findAll();
 	}
 
+	public List<Categoria> listarPorNome(String nome) {
+		if (nome == null || nome.trim().isEmpty()) {
+			return new ArrayList<Categoria>();
+		}
+
+		return repository.findByNomeContainsOrderByNome(nome);
+	}
+
 	public Categoria listar(Integer id) throws Exception {
 		if (id == null || id <= 0) {
 			throw new Exception("Parametro invalido");
 		}
-		
+
 		return repository.findById(id).get();
 	}
-	
+
 	public void remover(Integer id) throws Exception {
 		if (id == null || id <= 0) {
 			throw new Exception("Parametro invalido");
 		}
-		
+
 		repository.deleteById(id);
 	}
 

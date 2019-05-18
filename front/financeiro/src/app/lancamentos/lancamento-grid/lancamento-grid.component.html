@@ -23,11 +23,15 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of lancamentos">
-                        <td>{{item.tipo}}</td>
+                        <td>
+                            <i class="fas fa-plus" *ngIf="item.tipo == 'RECEITA'" title="{{item.tipo}}"></i>
+                            <i class="fas fa-minus" *ngIf="item.tipo == 'DESPESA'" title="{{item.tipo}}"></i>
+                        </td>
+
                         <td>{{item.descricao}}</td>
                         <td>{{item.valor}}</td>
-                        <td>{{item.data}}</td>
-                        <td>{{item.categoria.nome}}</td>
+                        <td>{{item.data | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{item.categoria?.nome}}</td>
                         <td>
                             <i class="far fa-edit" style="cursor: pointer" (click)="edit(item)"></i>
                             <i class="far fa-trash-alt" style="cursor: pointer" (click)="remover(item.id);"></i>
@@ -54,9 +58,29 @@
             </div>
 
             <div class="modal-body">
-
+                <app-lancamento-form [lancamento]="lancamentoSelecionado" (onSalvar)="onSalvar($event)">
+                </app-lancamento-form>
             </div>
 
         </div>
     </div>
 </div>
+
+
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

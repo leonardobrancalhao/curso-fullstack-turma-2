@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/components/common/messageservice';
 import { LancamentoService } from 'src/app/service/lancamento.service';
 
 declare var $: any;
@@ -12,8 +13,10 @@ export class LancamentoGridComponent implements OnInit {
 
     lancamentos: any[] = [];
     lancamentoSelecionado: any;
+    id: number;
 
-    constructor(private service: LancamentoService) { }
+    constructor(private service: LancamentoService,
+        private messageService: MessageService) { }
 
     ngOnInit() {
         this.service.listar().subscribe(
@@ -24,6 +27,11 @@ export class LancamentoGridComponent implements OnInit {
                 alert('Falha ao listar lançamentos. Erro: ' + error.error);
             }
         );
+    }
+
+    onSalvar(event) {
+        $('#modalForm').modal('hide');
+        this.ngOnInit();
     }
 
     novo() {
@@ -37,15 +45,27 @@ export class LancamentoGridComponent implements OnInit {
     }
 
     remover(id) {
-        this.service.remover(id).subscribe(
+        this.id = id;
+        this.messageService.clear();
+        this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Atenção', detail: 'Deseja remover o lançamento?' });
+    }
+
+    onConfirm() {
+        this.messageService.clear('c');
+
+        this.service.remover(this.id).subscribe(
             () => {
-                alert('Lançamento removida com sucesso');
+                this.messageService.add({ key: 'tc', severity: 'success', summary: 'Sucesso', detail: 'Lançamento removido' });
                 this.ngOnInit();
             },
             (error) => {
-                alert('Falha ao remover lançamento.\nErro: ' + error.error);
+                this.messageService.add({ key: 'tc', severity: 'error', summary: 'Falha ao remover lançamento', detail: 'Erro: ' + error.error });
             }
         );
+    }
+
+    onReject() {
+        this.messageService.clear('c');
     }
 
 }

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/components/common/messageservice';
 import { CategoriaService } from 'src/app/service/categoria.service';
 
 @Component({
@@ -16,7 +17,8 @@ export class CategoriaFormComponent implements OnInit, OnChanges {
 
     constructor(
         private fb: FormBuilder,
-        private service: CategoriaService) {
+        private service: CategoriaService,
+        private messageService: MessageService) {
 
         this.form = fb.group({
             id: [''],
@@ -29,7 +31,7 @@ export class CategoriaFormComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.categoria) {
-            
+
             if (!this.categoria) {
                 this.form.reset();
                 this.categoria = {};
@@ -42,11 +44,11 @@ export class CategoriaFormComponent implements OnInit, OnChanges {
     salvar() {
         this.service.salvar(this.form.value).subscribe(
             () => {
-                alert('Categoria salva com sucesso');
+                this.messageService.add({ key: 'tc', severity: 'success', summary: 'Sucesso', detail: 'Categoria salva' });
                 this.onSalvar.emit();
             },
             (error) => {
-                alert('Falha ao salvar categoria.\nErro: ' + error.error);
+                this.messageService.add({ key: 'tc', severity: 'error', summary: 'Falha ao salvar categoria', detail: 'Erro: ' + error.error });
             }
         );
     }

@@ -1,3 +1,55 @@
-<p>
-  lancamento-form works!
-</p>
+<form [formGroup]="form">
+
+    <div class="form-group" *ngIf="form.get('id').value">
+        <label for="input-id">Código</label>
+        <input type="number" disabled formControlName="id" class="form-control" id="input-id">
+    </div>
+
+    <div class="form-group">
+        <label for="input-tipo">Tipo</label>
+        <select id="input-tipo" class="form-control" formControlName="tipo">
+            <option [value]="'DESPESA'">DESPESA</option>
+            <option [value]="'RECEITA'">RECEITA</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="input-descricao">Descrição</label>
+        <input type="text" formControlName="descricao" class="form-control" id="input-descricao"
+            placeholder="Informe a descrição do lançamento...">
+    </div>
+
+    <div class="form-group">
+        <label for="input-valor">Valor</label>
+        <input type="text" formControlName="valor" class="form-control" id="input-valor"
+            placeholder="Informe o valor do lançamento...">
+    </div>
+
+    <div class="form-group">
+        <label for="input-data">Data</label>
+        <p-calendar 
+            formControlName="data"
+            [style]="{'width':'100%'}" 
+            inputStyleClass="form-control"
+            dateFormat="dd/mm/yy">
+        </p-calendar>
+    </div>
+
+    <div class="form-group">
+        <label for="input-categoria">Categoria</label>
+        <p-autoComplete 
+            formControlName="categoria"
+            [style]="{'width':'100%'}" 
+            inputStyleClass="form-control"
+            placeholder="Buscar categoria..."
+            (completeMethod)="buscarCategorias($event)"
+            [suggestions]="categorias"
+            field="nome"
+            [forceSelection]="true">
+        </p-autoComplete>
+    </div>
+
+    <button class="btn btn-primary" [disabled]="!form.valid" (click)="salvar()">
+        Salvar
+    </button>
+</form>

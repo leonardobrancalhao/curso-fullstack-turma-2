@@ -56,5 +56,5 @@ public class LancamentoController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 }

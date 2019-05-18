@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.leonardobrancalhao.curso.model.Categoria;
@@ -36,6 +37,11 @@ public class CategoriaController {
 	@GetMapping
 	public ResponseEntity<?> listar() {
 		return new ResponseEntity<>(service.listar(), HttpStatus.OK);
+	}
+	
+	@GetMapping(path = "/filtrar")
+	public ResponseEntity<?> listarPorNome(@RequestParam String nome) {
+		return new ResponseEntity<>(service.listarPorNome(nome), HttpStatus.OK);
 	}
 
 	@GetMapping(path = "/{id}")

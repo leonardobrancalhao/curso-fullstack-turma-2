@@ -18,4 +18,8 @@ export class LancamentoService {
     public remover(id: number): Observable<any> {
         return this.http.delete(this.url + '/' + id);
     }
+
+    public salvar(lancamento: any): Observable<any> {
+        return this.http.post(this.url, lancamento);
+    }
 }
