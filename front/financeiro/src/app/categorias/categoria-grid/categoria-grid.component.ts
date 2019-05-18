@@ -28,6 +28,7 @@ export class CategoriaGridComponent implements OnInit {
     }
 
     nova() {
+        this.categoriaSelecionada = null;
         $('#modalForm').modal('show');
     }
 

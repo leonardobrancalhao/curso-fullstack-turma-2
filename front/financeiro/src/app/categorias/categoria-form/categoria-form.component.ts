@@ -28,7 +28,13 @@ export class CategoriaFormComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.categoria && changes.categoria.currentValue) {
+        if (changes.categoria) {
+            
+            if (!this.categoria) {
+                this.form.reset();
+                this.categoria = {};
+            }
+
             this.form.patchValue(this.categoria);
         }
     }
